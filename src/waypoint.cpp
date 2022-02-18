@@ -113,7 +113,6 @@ void WayPoint_Publisher::startWaypointFollowing()
       "\t(%lf, %lf)", waypoint.pose.position.x, waypoint.pose.position.y);
   }
 
-  // Enable result awareness by providing an empty lambda function
   auto send_goal_options =
     rclcpp_action::Client<nav2_msgs::action::FollowWaypoints>::SendGoalOptions();
   send_goal_options.result_callback = [](auto) {};  
@@ -121,7 +120,6 @@ void WayPoint_Publisher::startWaypointFollowing()
   auto future_goal_handle =
     waypoint_follower_action_client->async_send_goal(waypoint_follower_goal, send_goal_options);
 
-  // Get the goal handle and save so that we can check on completion
   waypoint_follower_goal_handle = future_goal_handle.get();
   std::cout << waypoint_follower_goal_handle << std::endl;
   if (!waypoint_follower_goal_handle) {
